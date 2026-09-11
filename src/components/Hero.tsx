@@ -1,7 +1,26 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Hero() {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (!href.startsWith("#")) return;
+
+    e.preventDefault();
+
+    const targetId = href.slice(1);
+    const target = document.getElementById(targetId);
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", href);
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       
@@ -12,6 +31,7 @@ export default function Hero() {
           alt="NOVA Architecture Modern Building"
           fill
           priority 
+          quality={90}
           className="object-cover brightness-50" 
         />
       </div>
@@ -20,7 +40,7 @@ export default function Hero() {
       <div className="relative z-10 container mx-auto px-6 text-center text-surface">
         
         <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6">
-          Crafting Modern <span className="italic font-light">Architecture</span>
+          Crafting Modern <span className="italic font-light text-[#8BAF8B]">Architecture</span>
         </h1>
         
         <p className="text-lg md:text-xl font-sans max-w-2xl mx-auto mb-12 text-surfaceVariant">
@@ -31,12 +51,14 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link 
             href="#portfolio" 
+            onClick={(e) => handleNavClick(e, "#portfolio")}
             className="px-8 py-4 bg-surface text-onSurface font-bold tracking-wider uppercase text-sm hover:bg-surfaceVariant transition-colors"
           >
             Explore Projects
           </Link>
           <Link 
             href="#contact" 
+            onClick={(e) => handleNavClick(e, "#contact")}
             className="px-8 py-4 border border-surface text-surface font-bold tracking-wider uppercase text-sm hover:bg-surface/10 transition-colors"
           >
             Book a Consultation

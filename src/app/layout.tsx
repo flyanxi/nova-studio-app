@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Hanken_Grotesk, Courier_Prime } from "next/font/google";
 import "./globals.css";
 
@@ -18,12 +18,78 @@ const courier = Courier_Prime({
   variable: "--font-courier",
 });
 
+// TODO: replace with a real domain before deploying to production
+const SITE_URL = "https://nova-studio.com";
+const SITE_TITLE = "NOVA - Architecture";
+const SITE_DESCRIPTION =
+  "Crafting modern architecture and interior design experiences tailored to your vision.";
+
 export const metadata: Metadata = {
-  title: "NOVA - Architecture",
-  description: "Crafting modern architecture and interior design experiences tailored to your vision.",
-  icons: {
-    icon: "/favicon.ico", 
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: "%s | NOVA",
   },
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "architecture studio",
+    "interior design",
+    "modern architecture",
+    "commercial design",
+    "NOVA studio",
+  ],
+  authors: [{ name: "NOVA Studio" }],
+  creator: "NOVA Studio",
+  publisher: "NOVA Studio",
+
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+
+  alternates: {
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: "NOVA",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/assets/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NOVA - Modern Architecture Studio",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/assets/hero-bg.jpg"],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
